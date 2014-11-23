@@ -13,10 +13,10 @@ class Tutorial01 {
         Model model = ModelFactory.createDefaultModel();
 
         // create the resource
-        Resource johnSmith = model.createResource(personURI);
+        Resource raphaelCazenaveLeveque = model.createResource(personURI);
 
         // add the property
-        johnSmith.addProperty(VCARD.FN, fullName);
+        raphaelCazenaveLeveque.addProperty(VCARD.N, fullName);
 
         // show a representation of this model
         System.out.println(model);
