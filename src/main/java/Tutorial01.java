@@ -21,30 +21,13 @@ class Tutorial01 {
                                         .addProperty(VCARD.Given, givenName)
                                         .addProperty(VCARD.Family, familyName));
 
-        // list the statements in the Model
-        StmtIterator iter = model.listStatements();
+        // now write the model in XML form to a file
+        model.write(System.out);
 
-        // print out the predicate, subject and object of each statement
-        while (iter.hasNext()) {
-            Statement stmt      = iter.nextStatement();  // get next statement
-            Resource  subject   = stmt.getSubject();     // get the subject
-            Property  predicate = stmt.getPredicate();   // get the predicate
+        // now write the model in XML form to a file
+        model.write(System.out, "RDF/XML-ABBREV");
 
-            // get the object
-            // the getObject() method returns an object typed as RDFNode,
-            // which is a common superclass of both Resource and Literal
-            RDFNode   object    = stmt.getObject();
-
-            System.out.print(subject.toString());
-            System.out.print(" " + predicate.toString() + " ");
-            if (object instanceof Resource) {
-                System.out.print(object.toString());
-            } else {
-                // object is a literal
-                System.out.print(" \"" + object.toString() + "\"");
-            }
-
-            System.out.println(" .");
-        }
+        // now write the model in N-TRIPLES form to a file
+        model.write(System.out, "N-TRIPLES");
     }
 }
