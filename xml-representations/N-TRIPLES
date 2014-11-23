@@ -1,0 +1,5 @@
+_:AX2dX30eb723dX3aX149da4daeeeX3aXX2dX7fff <http://www.w3.org/2001/vcard-rdf/3.0#Family> "Cazenave-Leveque" .
+
+_:AX2dX30eb723dX3aX149da4daeeeX3aXX2dX7fff <http://www.w3.org/2001/vcard-rdf/3.0#Given> "Raphael" .
+<http://somewhere/RaphaelCazenaveLeveque> <http://www.w3.org/2001/vcard-rdf/3.0#N> _:AX2dX30eb723dX3aX149da4daeeeX3aXX2dX7fff .
+<http://somewhere/RaphaelCazenaveLeveque> <http://www.w3.org/2001/vcard-rdf/3.0#FN> "Raphael Cazenave-Leveque" .
