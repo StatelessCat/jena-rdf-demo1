@@ -1,7 +1,6 @@
-import com.hp.hpl.jena.rdf.model.*;
-import com.hp.hpl.jena.util.FileManager;
-
-import java.io.InputStream;
+import com.hp.hpl.jena.query.*;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 class Tutorial {
     static final String inputFileName  = "xml-representations/XML-ABBREV.xml";
@@ -10,18 +9,32 @@ class Tutorial {
         // create an empty model
         Model model = ModelFactory.createDefaultModel();
 
-        // use the FileManager to find the input file
-        InputStream in = FileManager.get().open( inputFileName );
-        if (in == null) {
-            throw new IllegalArgumentException(
-                    "File: " + inputFileName + " not found");
+        String queryString =
+                "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>" +
+                        "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                        "select distinct ?film where  {" +
+                        "   ?film a dbpedia-owl:Film ;" +
+                        "         rdfs:label ?label ." +
+                        "   filter regex( ?label, \"Inglourious Basterds\", \"i\")" +
+                        "}" +
+                        "limit 10";
+
+        // now creating query object
+        Query query = QueryFactory.create(queryString);
+
+        QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
+
+        try {
+            ResultSet results = qexec.execSelect();
+
+            // Output query results
+            ResultSetFormatter.out(System.out, results, query);
+
+            // now write the model in XML form to a file
+            model.write(System.out, "RDF/XML-ABBREV");
         }
-
-        // read the RDF/XML file
-        model.read(in, null);
-
-        // write it to standard out
-        model.write(System.out);
-
+        finally {
+            qexec.close();
+        }
     }
 }
